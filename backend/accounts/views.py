@@ -63,7 +63,7 @@ class LogoutView(APIView):
         
 
 class ProfileView(APIView):
-    def post(self,request):
+    def get(self,request):
         user = request.user
         return Response({
             'id': user.id,
