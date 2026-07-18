@@ -4,9 +4,11 @@ Django==6.0.7
 django-cors-headers==4.9.0
 djangorestframework==3.17.1
 drf-spectacular==0.30.0
+google-genai
 inflection==0.5.1
 jsonschema==4.26.0
 jsonschema-specifications==2025.9.1
+Pillow
 psycopg==3.3.4
 psycopg-binary==3.3.4
 python-decouple==3.8

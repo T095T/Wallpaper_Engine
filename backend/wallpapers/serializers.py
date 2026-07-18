@@ -1,7 +1,8 @@
-from rest_framework import serializers
 import re
 
-from .models import CharacterType, Device, Mood, Status, Style, Wallpaper
+from rest_framework import serializers
+
+from .models import CharacterType, Device, Mood, Style, Wallpaper
 
 
 class WallpaperGenerateSerializer(serializers.Serializer):
@@ -30,27 +31,13 @@ class WallpaperGenerateSerializer(serializers.Serializer):
         allow_null=True
     )
 
-    prompt = serializers.CharField(
-        max_length=500
-    )
-
-
-    def validate_prompt(self, value):
-        if not value.strip():
-            raise serializers.ValidationError("Prompt cannot be empty.")
-        elif len(value) > 500:
-            raise serializers.ValidationError("Prompt cannot exceed 500 characters.")
+    def validate_color_palette(self, value):
+        value = value.strip()
+        if not value:
+            raise serializers.ValidationError("Color palette cannot be empty.")
+        if not re.fullmatch(r"[A-Za-z0-9,\s#-]+", value):
+            raise serializers.ValidationError("Enter valid color names or hex values.")
         return value
-
-    
-
-def validate_color_palette(self, value):
-    value = value.strip()
-    if not value:
-        raise serializers.ValidationError("Color palette cannot be empty.")
-    if not re.fullmatch(r"[A-Za-z0-9,\\s#-]+", value):
-        raise serializers.ValidationError("Enter valid color names or hex values.")
-    return value
 
 
 class WallpaperSerializer(serializers.ModelSerializer):

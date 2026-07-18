@@ -4,6 +4,8 @@ from typing import Any
 
 
 class PromptBuilder:
+    MAX_PROMPT_LENGTH = 100
+
     MOOD_MAP = {
         "motivated": "a motivated and uplifting atmosphere",
         "calm": "a calm and peaceful atmosphere",
@@ -58,7 +60,15 @@ class PromptBuilder:
             self._build_device(data),
             self._build_quality(),
         ]
-        return " ".join(section for section in sections if section).strip()
+        prompt = " ".join(section for section in sections if section).strip()
+        return self._truncate_prompt(prompt)
+
+    def _truncate_prompt(self, prompt: str) -> str:
+        if len(prompt) <= self.MAX_PROMPT_LENGTH:
+            return prompt
+
+        truncated = prompt[: self.MAX_PROMPT_LENGTH].rsplit(" ", 1)[0].rstrip(" ,.;:-")
+        return truncated or prompt[: self.MAX_PROMPT_LENGTH]
 
     def _build_base(self, data: dict[str, Any]) -> str:
         title = (data.get("title") or "").strip()

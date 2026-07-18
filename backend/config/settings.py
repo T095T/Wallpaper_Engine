@@ -148,3 +148,12 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER': timedelta(days=1),
     'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
 }
+from decouple import config
+GEMINI_API_KEY = config('GOOGLE_GEMINI_KEY')
+GOOGLE_PROJECT_NAME = config('GOOGLE_PROJECT_NAME')
+GOOGLE_PROJECT_NUMBER = config('GOOGLE_PROJECT_NUMBER')
+
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
